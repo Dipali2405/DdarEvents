@@ -99,18 +99,25 @@
     }
 
 
+    /* Mobile Menu */
     .mobile-menu {
-      display: none;
+      position: fixed;
+      top: 0;
+      right: -200px; /* hidden offscreen */
+      width: 200px;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      padding: 20px;
+      border-radius: 0 0 0 12px;
+      display: flex;
       flex-direction: column;
       gap: 15px;
-      position: fixed;
-      top: 80px;
-      right: 24px;
-      width: 200px;
-      background-color: none;
-      padding: 20px;
-      border-radius: 12px;
       z-index: 1000;
+      transition: right 0.3s ease;
+    }
+
+    .mobile-menu.show {
+      right: 0; /* slide in */
     }
 
     .mobile-menu a {
@@ -198,10 +205,6 @@
         display: block;
       }
 
-      .mobile-menu.show {
-        display: flex;
-      }
-
       .section-header h2 {
         font-size: 28px;
       }
@@ -221,8 +224,6 @@
         font-size: 14px;
       }
     }
-
-
   </style>
 </head>
 <body>
@@ -269,7 +270,7 @@
       <div class="team-member">
         <img src="image/Jay.jpeg" alt="Jay Nimavat">
         <h3>Jay Nimavat</h3>
-        <p>     Website Handling     </p>
+        <p>Website Handling</p>
       </div>
       <div class="team-member">
         <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Akash Shelke">
@@ -290,7 +291,11 @@
       // Toggle mobile menu
       $('.menu-toggle').click(function(){
         $('.mobile-menu').toggleClass('show');
-        $('.overlay').fadeToggle();
+        if($('.mobile-menu').hasClass('show')) {
+          $('.overlay').fadeIn();
+        } else {
+          $('.overlay').fadeOut();
+        }
       });
 
       // Close mobile menu on overlay click
